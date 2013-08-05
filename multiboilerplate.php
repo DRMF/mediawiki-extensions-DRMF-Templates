@@ -140,20 +140,18 @@ function efMultiBoilerplate( $form ) {
 		 */
 		
 		$tex = $wgTitle->getPrefixedUrl();			
-		$tex_url = rawurldecode($tex);
-		$wgOut->setPageTitle('Hello');
-	
-		$content = preg_replace( '#<noinclude>(.*)\</noinclude>#', '<math>'.$tex_url.'</math>', $content );
-
+		$tex = rawurldecode($tex);
+        $tex = preg_replace("#obrackett#ims","[",$tex);
+        $tex = preg_replace("#cbrackett#ims","]",$tex);
+        $tex = preg_replace("#obracee#ims","{",$tex);
+        $tex = preg_replace("#cbracee#ims","}",$tex);
+		$title = '<math>'.$tex.'</math>';
+		$wgOut->setPageTitle($title);
+		$content = preg_replace('#<title/>#ims', $title, $content);
+		$content = preg_replace( '#<noinclude>(.*?)</noinclude>#ims', '', $content );
 		$content = preg_replace( '#<includeonly>(.*?)</includeonly>#ims', '$1', $content );
-
-	//	$content = preg_replace('#<math>(.*?)</math>#ims', '<math>'.$tex_url.'</math>', $content);
-	//	echo $content;
-		
 		// TODO: Handle <onlyinclude> tags.
 		$form->textbox1 = $content;
-		
-		
 	}
 
 	// Return true so things don't break.
