@@ -141,10 +141,16 @@ function efMultiBoilerplate( $form ) {
 		
 		$tex = $wgTitle->getPrefixedUrl();			
 		$tex = rawurldecode($tex);
-        $tex = preg_replace("#obrackett#ims","[",$tex);
-        $tex = preg_replace("#cbrackett#ims","]",$tex);
-        $tex = preg_replace("#obracee#ims","{",$tex);
-        $tex = preg_replace("#cbracee#ims","}",$tex);
+        $tex = preg_replace("#obrk#ims","[",$tex);
+        $tex = preg_replace("#cbrk#ims","]",$tex);
+        $tex = preg_replace("#obrc#ims","{",$tex);
+        $tex = preg_replace("#cbrc#ims","}",$tex);
+        $tex = preg_replace("#wmpnd#ims","#",$tex);
+        $tex = preg_replace("#wmlangle#ims","<",$tex);
+        $tex = preg_replace("#wmrangle#ims",">",$tex);
+	$tex = preg_replace("#wmuscore#ims","_",$tex);
+	$tex = preg_replace("#wmvbar#ims","|",$tex);
+
 		$title = '<math>'.$tex.'</math>';
 		$wgOut->setPageTitle($title);
 		$content = preg_replace('#<title/>#ims', $title, $content);
